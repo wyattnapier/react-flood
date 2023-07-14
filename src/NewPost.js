@@ -23,15 +23,15 @@ export default function NewPost () {
         setSelectedState(e.target.value);
     }
 
-    const [name, setName] = useState('Name (first, last)');
-    function handleNameChange(e) {
-        setName(e.target.value);
-    }
-
     //is there a way to use a library to autogenerate main towns from states?
     const [town, setTown] = useState('Town name');
     function handleTownChange(e) {
         setTown(e.target.value);
+    }
+
+    const [name, setName] = useState('Name (first, last)');
+    function handleNameChange(e) {
+        setName(e.target.value);
     }
 
     //title of post

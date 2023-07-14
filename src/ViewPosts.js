@@ -16,6 +16,7 @@ export default function ViewPosts () {
     const [selectedState, setSelectedState] = useState('');
     function handleStateChange (e) {
         setSelectedState(e.target.value);
+        console.log("selected state " + selectedState)
     }
 
     //is there a way to use a library to autogenerate main towns from states?
@@ -35,16 +36,23 @@ export default function ViewPosts () {
             <h1>Let's filter this out:</h1>
             <h3>State:</h3>
             <select value={selectedState} onChange={handleStateChange}>
-                <option value=""> -- Select --</option>
+                <option value=""> -- Select -- </option>
+                {getStatesOfCountry('US').map(state =>
+                    <option value={state.stateCode}>{state.name}</option>
+                )}
                 <option value="VT">Vermont</option>
                 <option value="NH">New Hampshire</option>
             </select>
-            <h3>Town:</h3>
-            <textarea 
-                placeholder='town'
-                value={town}
-                onChange={handleTownChange}
-            />
+            {selectedState?(
+                <div>
+                    <h3>Town:</h3>
+                    <textarea 
+                        placeholder='town'
+                        value={town}
+                        onChange={handleTownChange}
+                    />
+                </div>
+            ):<br></br>}
             <p>Everyone:</p>
             <ul>
                 {people.map(person =>

@@ -1,22 +1,20 @@
 import React, { useState } from 'react';
 import { people } from './data.js';
 import { floodData } from './data.js';
-import { Country, State, City } from 'country-state-city';
-import { getStatesOfCountry } from 'country-state-city/lib/state.js';
+import { State, City } from 'country-state-city';
 
 export default function ViewPosts () {
 
     //state selection
-    //is there a way that I can use a library to grab all towns from each state?
-    //also can I autogenerate a list of states instead?
-    let selectedStateCode = 'VT';
+    let selectedStateCode = '';
     const [selectedState, setSelectedState] = useState('');
-    function handleStateChange (e) {
+    const handleStateChange = (e) => {
         setSelectedState(e.target.value);
-        console.log("selected state " + selectedState)
-        // selectedStateCode = selectedState.stateCode
-        selectedStateCode = 'VT'
+        console.log("selected state " + e.target.value)
+        // selectedStateCode = State.selectedState.stateCode
+        selectedStateCode = e.target.value;
         console.log("selected state code: " + selectedStateCode)
+        console.log(City.getCitiesOfState('US', {selectedStateCode})) //works when hardcoded for a state
     }
 
     //is there a way to use a library to autogenerate main towns from states?
@@ -25,7 +23,7 @@ export default function ViewPosts () {
         setTown(e.target.value);
     }
 
-    const stateOptions = getStatesOfCountry('US').map(state => ({
+    const stateOptions = State.getStatesOfCountry('US').map(state => ({
         value: state.stateCode,
         label: state.name
     }));
@@ -44,7 +42,6 @@ export default function ViewPosts () {
 
     return (
         <div>
-            <p>AHEM! I'm trying to view a post here :/</p>
             <h1>Let's filter this out:</h1>
             <h3>State:</h3>
             <select value={selectedState} onChange={handleStateChange}>
@@ -52,8 +49,6 @@ export default function ViewPosts () {
                 {State.getStatesOfCountry('US').map(state =>
                     <option value={state.stateCode}>{state.name}</option>
                 )}
-                <option value="VT">Vermont</option>
-                <option value="NH">New Hampshire</option>
             </select>
             {selectedState?(
                 <div>
@@ -67,7 +62,22 @@ export default function ViewPosts () {
                     </select>
                 </div>
             ):<br></br>}
-            <p>Everyone:</p>
+            <p>Disaster victims: </p>
+            <ul>
+                {stateFloodData.map(entry =>
+                    <li key={entry.id}>
+                        <p>
+                            <b>{entry.name}:</b>
+                            {' has some problems: ' + entry.issue + '.'}
+                        </p>
+                    </li>
+                )}
+            </ul>
+        </div>
+    );
+}
+
+            /* <p>Everyone:</p>
             <ul>
                 {people.map(person =>
                     <li key={person.id}>
@@ -88,18 +98,4 @@ export default function ViewPosts () {
                         </p>
                     </li>
                 )}
-            </ul>
-            <p>Disaster victims: </p>
-            <ul>
-                {stateFloodData.map(entry =>
-                    <li key={entry.id}>
-                        <p>
-                            <b>{entry.name}:</b>
-                            {' has some problems: ' + entry.issue + '.'}
-                        </p>
-                    </li>
-                )}
-            </ul>
-        </div>
-    );
-}
+            </ul> */

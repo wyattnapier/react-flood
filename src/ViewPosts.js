@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { people } from "./data.js";
+// import { people } from "./data.js";
+// import { floodData } from "./data.js";
 import { Country, State, City } from "country-state-city";
 import { getStatesOfCountry } from "country-state-city/lib/state.js";
 
@@ -28,22 +29,10 @@ export default function ViewPosts() {
     label: state.name,
   }));
 
-  //imported data from data.js
-  const vtpeeps = people.filter((person) => person.state === "Vermont");
+  //   //imported data from data.js
+  //   const vtpeeps = people.filter((person) => person.state === "Vermont");
 
-  // flood data from api
-  const [posts, setPosts] = useState([]);
-  useEffect(() => {
-    fetch("http://localhost:5000/api/posts")
-      .then((response) => response.json())
-      .then((data) => {
-        setPosts(data);
-        console.log("all flood data: " + posts);
-      })
-      .catch((error) => console.error("Error:", error));
-  }, []);
-
-  // flood data from data.js
+  //   //flood data from data.js
   //   const stateFloodData = floodData.filter(
   //     (entry) =>
   //       //console.log("selected state code: " + selectedStateCode + " // entry's state: " + entry.state)
@@ -51,7 +40,20 @@ export default function ViewPosts() {
   //     // selectedStateCode.equals(entry.state)
   //   );
   //   console.log("all flood data: " + floodData[0].state);
-  //   console.log("cut down flood data: " + stateFloodData);
+  //   console.log("cut down flood data: ", stateFloodData);
+
+  // posts from api
+  const [posts, setPosts] = useState([]);
+  useEffect(() => {
+    fetch("http://localhost:5000/api/posts")
+      .then((response) => response.json())
+      .then((data) => {
+        setPosts(data);
+        console.log("posts from API 👇");
+        console.log(data);
+      })
+      .catch((error) => console.error("Error:", error));
+  }, []);
 
   return (
     <div>
@@ -61,7 +63,9 @@ export default function ViewPosts() {
       <select value={selectedState} onChange={handleStateChange}>
         <option value=""> -- Select -- </option>
         {State.getStatesOfCountry("US").map((state) => (
-          <option value={state.stateCode}>{state.name}</option>
+          <option key={state.stateCode} value={state.stateCode}>
+            {state.name}
+          </option>
         ))}
         <option value="VT">Vermont</option>
         <option value="NH">New Hampshire</option>
@@ -74,15 +78,17 @@ export default function ViewPosts() {
             {console.log(
               "right before execution this is the code: " + selectedStateCode
             )}
-            {City.getCitiesOfState("US", { selectedStateCode }).map((town) => (
-              <option value={town.name}>{town.name}</option>
+            {City.getCitiesOfState("US", selectedStateCode).map((town) => (
+              <option key={town.name} value={town.name}>
+                {town.name}
+              </option>
             ))}
           </select>
         </div>
       ) : (
         <br></br>
       )}
-      <p>Everyone:</p>
+      {/* <p>Everyone:</p>
       <ul>
         {people.map((person) => (
           <li key={person.id}>
@@ -92,8 +98,8 @@ export default function ViewPosts() {
             </p>
           </li>
         ))}
-      </ul>
-      <p>Now just the Vermonters!</p>
+      </ul> */}
+      {/* <p>Now just the Vermonters!</p>
       <ul>
         {vtpeeps.map((person) => (
           <li key={person.id}>
@@ -106,10 +112,22 @@ export default function ViewPosts() {
       </ul>
       <p>Disaster victims: </p>
       <ul>
-        {posts.map((entry) => (
+        {stateFloodData.map((entry) => (
           <li key={entry.id}>
             <p>
               <b>{entry.name}:</b>
+              {" has some problems: " + entry.issue + "."}
+            </p>
+          </li>
+        ))}
+      </ul> */}
+      <hr />
+      <ul>
+        {posts.map((entry) => (
+          <li key={entry._id}>
+            <h1>{entry.title}</h1>
+            <p>
+              <b>{entry.name} </b>
               {" has some problems: " + entry.issue + "."}
             </p>
           </li>

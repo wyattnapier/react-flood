@@ -59,7 +59,7 @@ export default function ViewPosts() {
   // posts from api
   const [posts, setPosts] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:5000/api/posts")
+    fetch("http://localhost:5001/api/posts")
       .then((response) => response.json())
       .then((data) => {
         setPosts(data);

@@ -15,7 +15,7 @@ export default function NewPost() {
       issue: issue,
       contactInfo: contactInfo,
     };
-    fetch("http://localhost:5000/api/addPost", {
+    fetch("http://localhost:5001/api/addPost", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

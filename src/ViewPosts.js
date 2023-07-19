@@ -17,6 +17,20 @@ export default function ViewPosts() {
     selectedStateCode = "VT";
     console.log("selected state code: " + selectedStateCode);
   }
+  
+  // merge file conflict
+  /*
+    let selectedStateCode = '';
+    const [selectedState, setSelectedState] = useState('');
+    const handleStateChange = (e) => {
+        setSelectedState(e.target.value);
+        console.log("selected state " + e.target.value)
+        // selectedStateCode = State.selectedState.stateCode
+        selectedStateCode = e.target.value;
+        console.log("selected state code: " + selectedStateCode)
+        console.log(City.getCitiesOfState('US', selectedStateCode)) //works when hardcoded for a state
+    }
+   */
 
   //is there a way to use a library to autogenerate main towns from states?
   const [town, setTown] = useState("Town name");
@@ -28,7 +42,7 @@ export default function ViewPosts() {
     value: state.stateCode,
     label: state.name,
   }));
-
+  
   //   //imported data from data.js
   //   const vtpeeps = people.filter((person) => person.state === "Vermont");
 
@@ -78,6 +92,7 @@ export default function ViewPosts() {
             {console.log(
               "right before execution this is the code: " + selectedStateCode
             )}
+            // removed curly braces to "unlock" town list
             {City.getCitiesOfState("US", selectedStateCode).map((town) => (
               <option key={town.name} value={town.name}>
                 {town.name}

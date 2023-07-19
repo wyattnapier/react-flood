@@ -24,3 +24,23 @@ export const people = [{
     profession: 'astrophysicist',
     state: 'Vermont'
 }];
+
+export const floodData = [{
+    id: 0,
+    name: 'farmers',
+    state: 'VT',
+    town: 'woodstock',
+    title: 'shovelling needed',
+    issue: 'we really need help shoveling up the silt',
+    constactInfo: '8023456789 example@gmail.com',
+    dateCreated: '20:57:06 7 18 2023'
+}, {
+    id: 1,
+    name: 'white cottage',
+    state: 'VT',
+    town: 'woodstock',
+    title: 'scooping needed',
+    issue: 'employees desparately needed since kip quit',
+    constactInfo: '8024578921 example@gmail.com',
+    dateCreated: '21:00:06 7 18 2023'
+}]

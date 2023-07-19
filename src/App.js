@@ -14,7 +14,7 @@ function Button ({action, text}) {
 function App() {
   //false is viewPosts
   //true is makePost
-  const [tab, setTab] = useState(true);
+  const [tab, setTab] = useState(false);
   function switchTab () { 
     setTab(!tab);
     console.log(tab);

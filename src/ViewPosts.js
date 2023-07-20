@@ -10,6 +10,7 @@ export default function ViewPosts() {
   const [selectedStateCode, setSelectedStateCode] = useState("");
   const [selectedState, setSelectedState] = useState("");
   const [townOptions, setTownOptions] = useState([]);
+  
   // handleStateChange will change all of these
   function handleStateChange(e) {
     setSelectedState(e.target.value);
@@ -20,45 +21,18 @@ export default function ViewPosts() {
 
     // get town list IN state change
     setTownOptions(City.getCitiesOfState('US', abbr));
-    console.log("town options: " + townOptions)
-    console.log(City.getCitiesOfState('US', abbr))
   }
 
-  //is there a way to use a library to autogenerate main towns from states?
   const [town, setTown] = useState("Town name");
   function handleTownChange(e) {
     setTown(e.target.value);
   }
 
-  // original with states + territories
-//   const stateOptions = getStatesOfCountry("US").map((state) => ({
-//     value: state.stateCode,
-//     label: state.name,
-//   }));
   const fiftyStates = stateConverter.only50();
-  console.log("here are the states: "+ fiftyStates)
-
-  // working edition without territories
-  
   const stateOptions = fiftyStates.map((state) => ({
     value: state.stateCode,
     name: state.name,
   }));
-  
-  
-  
-  //   //imported data from data.js
-  //   const vtpeeps = people.filter((person) => person.state === "Vermont");
-
-  //   //flood data from data.js
-  //   const stateFloodData = floodData.filter(
-  //     (entry) =>
-  //       //console.log("selected state code: " + selectedStateCode + " // entry's state: " + entry.state)
-  //       entry.state === "VT" // only likes strings, not variables
-  //     // selectedStateCode.equals(entry.state)
-  //   );
-  //   console.log("all flood data: " + floodData[0].state);
-  //   console.log("cut down flood data: ", stateFloodData);
 
   // posts from api
   const [posts, setPosts] = useState([]);
@@ -73,10 +47,13 @@ export default function ViewPosts() {
       .catch((error) => console.error("Error:", error));
   }, []);
 
+
   return (
     <div>
+      {/* header */}
       <h1>Let's filter this out:</h1>
 
+      {/* state selection button */}
       <h3>State:</h3>
       <select value={selectedState} onChange={handleStateChange}>
         <option value=""> -- Select -- </option>
@@ -87,6 +64,7 @@ export default function ViewPosts() {
         ))}
       </select>
 
+      {/* town selection button */}
       {selectedState ? (
         <div>
           <h3>Town:</h3>
@@ -103,8 +81,8 @@ export default function ViewPosts() {
         <br></br>
       )}
 
+      {/* posts from API */}
       <hr />
-
       <ul>
         {posts.map((entry) => (
           <li key={entry._id}>

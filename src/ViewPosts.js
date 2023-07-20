@@ -10,7 +10,7 @@ export default function ViewPosts() {
   const [selectedStateCode, setSelectedStateCode] = useState("");
   const [selectedState, setSelectedState] = useState("");
   const [townOptions, setTownOptions] = useState([]);
-  
+
   // handleStateChange will change all of these
   function handleStateChange(e) {
     setSelectedState(e.target.value);
@@ -46,6 +46,28 @@ export default function ViewPosts() {
       })
       .catch((error) => console.error("Error:", error));
   }, []);
+  /* 
+  // first need to filter the posts so they're just from one state:
+  // might need to use state for these variables since they change
+  // can probably put this in the handleStateChange() function!!!
+      const statePosts = floodData.filter((entry) =>
+        //console.log("selected state code: " + selectedStateCode + " // entry's state: " + entry.state)
+        entry.state === 'VT' // only likes strings, not variables
+        // selectedStateCode.equals(entry.state)
+    );
+
+    constTownposts = statePosts.filter((entry) => 
+        entry.town === 'Woodstock'
+    )
+
+
+  // stack overflow suggestion for sorting in descending order:
+  // need to swap out variables still once connected to mongoDB
+    var sorted_meetings = meetings.sort((a,b) => {
+    return new Date(a.scheduled_for).getTime() - 
+        new Date(b.scheduled_for).getTime()
+    }).reverse();
+  */
 
 
   return (
@@ -85,12 +107,14 @@ export default function ViewPosts() {
       <hr />
       <ul>
         {posts.map((entry) => (
-          <li key={entry._id}>
-            <h1>{entry.title}</h1>
-            <p>
+          <li className="postEntry" key={entry._id}>
+            <h1 className="postTitle">{entry.title}</h1>
+            <h3 className="postLocation">{entry.town + ", " + entry.state}</h3>
+            <p className="postContent">
               <b>{entry.name} </b>
-              {" has some problems: " + entry.issue + "."}
+              {entry.issue}
             </p>
+            <p className="postContactInfo">Contact me at: {entry.contactInfo}</p>
           </li>
         ))}
       </ul>

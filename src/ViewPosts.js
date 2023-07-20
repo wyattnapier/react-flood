@@ -11,31 +11,20 @@ export default function ViewPosts() {
   //also can I autogenerate a list of states instead?
   const [selectedStateCode, setSelectedStateCode] = useState("");
   const [selectedState, setSelectedState] = useState("");
+  const [townOptions, setTownOptions] = useState([]);
   // handleStateChange will handle both of these
   function handleStateChange(e) {
     setSelectedState(e.target.value);
     let abbr = stateConverter.abbr(e.target.value);
     setSelectedStateCode(abbr);
     console.log("selected state " + e.target.value);
-    // selectedStateCode = selectedState.stateCode
-    // selectedStateCode = "VT";
     console.log("selected state code: " + abbr);
+
     // get town list IN state change
+    setTownOptions(City.getCitiesOfState('US', abbr));
+    console.log("town options: " + townOptions)
+    console.log(City.getCitiesOfState('US', abbr))
   }
-  
-  // merge file conflict
-  /*
-    let selectedStateCode = '';
-    const [selectedState, setSelectedState] = useState('');
-    const handleStateChange = (e) => {
-        setSelectedState(e.target.value);
-        console.log("selected state " + e.target.value)
-        // selectedStateCode = State.selectedState.stateCode
-        selectedStateCode = e.target.value;
-        console.log("selected state code: " + selectedStateCode)
-        console.log(City.getCitiesOfState('US', selectedStateCode)) //works when hardcoded for a state
-    }
-   */
 
   //is there a way to use a library to autogenerate main towns from states?
   const [town, setTown] = useState("Town name");
@@ -76,8 +65,8 @@ export default function ViewPosts() {
 
   return (
     <div>
-      <p>AHEM! I'm trying to view a post here :/</p>
       <h1>Let's filter this out:</h1>
+
       <h3>State:</h3>
       <select value={selectedState} onChange={handleStateChange}>
         <option value=""> -- Select -- </option>
@@ -87,16 +76,13 @@ export default function ViewPosts() {
           </option>
         ))}
       </select>
+
       {selectedState ? (
         <div>
           <h3>Town:</h3>
           <select value={town} onChange={handleTownChange}>
             <option value=""> -- Select -- </option>
-            {console.log(
-              "right before execution this is the code: " + selectedStateCode
-            )}
-            // removed curly braces to "unlock" town list
-            {City.getCitiesOfState("US", selectedState).map((town) => (
+            {townOptions.map((town) => (
               <option key={town.name} value={town.name}>
                 {town.name}
               </option>
@@ -106,6 +92,7 @@ export default function ViewPosts() {
       ) : (
         <br></br>
       )}
+      
       {/* <p>Everyone:</p>
       <ul>
         {people.map((person) => (

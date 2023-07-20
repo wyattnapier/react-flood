@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 // import { people } from "./data.js";
 // import { floodData } from "./data.js";
+import stateConverter from "us-state-converter";
 import { Country, State, City } from "country-state-city";
 import { getStatesOfCountry } from "country-state-city/lib/state.js";
 
@@ -8,14 +9,18 @@ export default function ViewPosts() {
   //state selection
   //is there a way that I can use a library to grab all towns from each state?
   //also can I autogenerate a list of states instead?
-  let selectedStateCode = "VT";
+  const [selectedStateCode, setSelectedStateCode] = useState("");
   const [selectedState, setSelectedState] = useState("");
+  // handleStateChange will handle both of these
   function handleStateChange(e) {
     setSelectedState(e.target.value);
-    console.log("selected state " + selectedState);
+    let abbr = stateConverter.abbr(e.target.value);
+    setSelectedStateCode(abbr);
+    console.log("selected state " + e.target.value);
     // selectedStateCode = selectedState.stateCode
-    selectedStateCode = "VT";
-    console.log("selected state code: " + selectedStateCode);
+    // selectedStateCode = "VT";
+    console.log("selected state code: " + abbr);
+    // get town list IN state change
   }
   
   // merge file conflict
@@ -81,8 +86,6 @@ export default function ViewPosts() {
             {state.name}
           </option>
         ))}
-        <option value="VT">Vermont</option>
-        <option value="NH">New Hampshire</option>
       </select>
       {selectedState ? (
         <div>
@@ -93,7 +96,7 @@ export default function ViewPosts() {
               "right before execution this is the code: " + selectedStateCode
             )}
             // removed curly braces to "unlock" town list
-            {City.getCitiesOfState("US", selectedStateCode).map((town) => (
+            {City.getCitiesOfState("US", selectedState).map((town) => (
               <option key={town.name} value={town.name}>
                 {town.name}
               </option>

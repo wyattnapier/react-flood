@@ -10,22 +10,28 @@ export default function ViewPosts() {
   const [selectedStateCode, setSelectedStateCode] = useState("");
   const [selectedState, setSelectedState] = useState("");
   const [townOptions, setTownOptions] = useState([]);
+  const [statePosts, setStatePosts] = useState([]);
+  const [townPosts, setTownPosts] = useState([]);
 
   // handleStateChange will change all of these
   function handleStateChange(e) {
     setSelectedState(e.target.value);
     let abbr = stateConverter.abbr(e.target.value);
     setSelectedStateCode(abbr);
-    console.log("selected state " + e.target.value);
-    console.log("selected state code: " + abbr);
+    let tempFilter = posts.filter((entry) => entry.state === abbr);
+    setStatePosts(tempFilter);
+    console.log(tempFilter)
 
     // get town list IN state change
+    setTown(""); 
     setTownOptions(City.getCitiesOfState('US', abbr));
   }
 
   const [town, setTown] = useState("Town name");
   function handleTownChange(e) {
     setTown(e.target.value);
+    let tempFilter = statePosts.filter((entry) => entry.state === e.target.value);
+    setTownPosts(tempFilter)
   }
 
   const fiftyStates = stateConverter.only50();
@@ -50,15 +56,6 @@ export default function ViewPosts() {
   // first need to filter the posts so they're just from one state:
   // might need to use state for these variables since they change
   // can probably put this in the handleStateChange() function!!!
-      const statePosts = floodData.filter((entry) =>
-        //console.log("selected state code: " + selectedStateCode + " // entry's state: " + entry.state)
-        entry.state === 'VT' // only likes strings, not variables
-        // selectedStateCode.equals(entry.state)
-    );
-
-    constTownposts = statePosts.filter((entry) => 
-        entry.town === 'Woodstock'
-    )
 
 
   // stack overflow suggestion for sorting in descending order:
@@ -69,7 +66,9 @@ export default function ViewPosts() {
     }).reverse();
   */
 
-
+  console.log("all posts: " + posts);
+  console.log("state posts: " + statePosts);
+  console.log("town posts: " + townPosts);
   return (
     <div>
       {/* header */}
@@ -106,7 +105,63 @@ export default function ViewPosts() {
       {/* posts from API */}
       <hr />
       <ul>
+        {selectedState ? (posts.map((entry) => (
+          <li className="postEntry" key={entry._id}>
+            <h1 className="postTitle">{entry.title}</h1>
+            <h3 className="postLocation">{entry.town + ", " + entry.state}</h3>
+            <p className="postContent">
+              <b>{entry.name} </b>
+              {entry.issue}
+            </p>
+            <p className="postContactInfo">Contact me at: {entry.contactInfo}</p>
+          </li>
+        )))
+        : (statePosts.map((entry) => (
+          <li className="postEntry" key={entry._id}>
+            <h1 className="postTitle">{entry.title}</h1>
+            <h3 className="postLocation">{entry.town + ", " + entry.state}</h3>
+            <p className="postContent">
+              <b>{entry.name} </b>
+              {entry.issue}
+            </p>
+            <p className="postContactInfo">Contact me at: {entry.contactInfo}</p>
+          </li>
+        )))}
+      </ul>
+      <hr />
+      <ul>
+        <h1>ALL POSTS</h1>
         {posts.map((entry) => (
+          <li className="postEntry" key={entry._id}>
+            <h1 className="postTitle">{entry.title}</h1>
+            <h3 className="postLocation">{entry.town + ", " + entry.state}</h3>
+            <p className="postContent">
+              <b>{entry.name} </b>
+              {entry.issue}
+            </p>
+            <p className="postContactInfo">Contact me at: {entry.contactInfo}</p>
+          </li>
+        ))}
+      </ul>
+      <hr />
+      <ul>
+        <h1>STATE POSTS</h1>
+        {statePosts.map((entry) => (
+          <li className="postEntry" key={entry._id}>
+            <h1 className="postTitle">{entry.title}</h1>
+            <h3 className="postLocation">{entry.town + ", " + entry.state}</h3>
+            <p className="postContent">
+              <b>{entry.name} </b>
+              {entry.issue}
+            </p>
+            <p className="postContactInfo">Contact me at: {entry.contactInfo}</p>
+          </li>
+        ))}
+      </ul>
+      <hr />
+      <ul>
+        <h1>TOWN POSTS</h1>
+        {townPosts.map((entry) => (
           <li className="postEntry" key={entry._id}>
             <h1 className="postTitle">{entry.title}</h1>
             <h3 className="postLocation">{entry.town + ", " + entry.state}</h3>

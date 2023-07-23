@@ -104,6 +104,7 @@ export default function ViewPosts() {
 
       {/* posts from API */}
       <hr />
+      <h1>Testing conditional</h1>
       <ul>
         {selectedState ? (posts.map((entry) => (
           <li className="postEntry" key={entry._id}>

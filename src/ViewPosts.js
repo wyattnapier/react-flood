@@ -20,17 +20,18 @@ export default function ViewPosts() {
     setSelectedStateCode(abbr);
     let tempFilter = posts.filter((entry) => entry.state === abbr);
     setStatePosts(tempFilter);
-    console.log(tempFilter)
 
     // get town list IN state change
-    setTown(""); 
+    setSelectedTown(""); 
     setTownOptions(City.getCitiesOfState('US', abbr));
   }
 
-  const [town, setTown] = useState("Town name");
+  const [selectedTown, setSelectedTown] = useState("Town name");
   function handleTownChange(e) {
-    setTown(e.target.value);
+    setSelectedTown(e.target.value);
+    console.log("statePosts to be filtered: " + statePosts)
     let tempFilter = statePosts.filter((entry) => entry.state === e.target.value);
+    console.log("tempfilter (which is also town posts): " + tempFilter)
     setTownPosts(tempFilter)
   }
 
@@ -47,8 +48,8 @@ export default function ViewPosts() {
       .then((response) => response.json())
       .then((data) => {
         setPosts(data);
-        console.log("posts from API 👇");
-        console.log(data);
+        // console.log("posts from API 👇");
+        // console.log(data);
       })
       .catch((error) => console.error("Error:", error));
   }, []);
@@ -66,9 +67,6 @@ export default function ViewPosts() {
     }).reverse();
   */
 
-  console.log("all posts: " + posts);
-  console.log("state posts: " + statePosts);
-  console.log("town posts: " + townPosts);
   return (
     <div>
       {/* header */}
@@ -89,7 +87,7 @@ export default function ViewPosts() {
       {selectedState ? (
         <div>
           <h3>Town:</h3>
-          <select value={town} onChange={handleTownChange}>
+          <select value={selectedTown} onChange={handleTownChange}>
             <option value=""> -- Select -- </option>
             {townOptions.map((town) => (
               <option key={town.name} value={town.name}>
@@ -105,9 +103,10 @@ export default function ViewPosts() {
       {/* posts from API */}
       <hr />
       <h1>Testing conditional</h1>
-      {console.log("selected state value: " + selectedState)}
-      {console.log("posts: " + posts)}
+      {console.log("selected town value: " + selectedTown)}
+      {/* {console.log("posts: " + posts)} */}
       {console.log("statePosts: " + statePosts)}
+      {console.log("townPosts: " + townPosts)}
       <ul>
         {selectedState ? (
           statePosts.map((entry) => (
@@ -121,7 +120,18 @@ export default function ViewPosts() {
             <p className="postContactInfo">Contact me at: {entry.contactInfo}</p>
           </li>
         ))
-        ) : (
+        ) : ( selectedTown ? (
+          townPosts.map((entry) => (
+            <li className="postEntry" key={entry._id}>
+              <h1 className="postTitle">{entry.title}</h1>
+              <h3 className="postLocation">{entry.town + ", " + entry.state}</h3>
+              <p className="postContent">
+                <b>{entry.name} </b>
+                {entry.issue}
+              </p>
+              <p className="postContactInfo">Contact me at: {entry.contactInfo}</p>
+            </li>
+        ))) : (
           posts.map((entry) => (
           <li className="postEntry" key={entry._id}>
             <h1 className="postTitle">{entry.title}</h1>
@@ -132,7 +142,7 @@ export default function ViewPosts() {
             </p>
             <p className="postContactInfo">Contact me at: {entry.contactInfo}</p>
           </li>
-        ))
+        )))
         )}
       </ul>
      

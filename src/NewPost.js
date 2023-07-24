@@ -1,4 +1,6 @@
 import { useState } from "react";
+import stateConverter from "us-state-converter";
+import { State, City } from "country-state-city";
 
 export default function NewPost() {
   // submit button
@@ -10,7 +12,7 @@ export default function NewPost() {
     const newPost = {
       name: name,
       state: selectedState,
-      town: town,
+      town: selectedTown,
       title: title,
       issue: issue,
       contactInfo: contactInfo,
@@ -26,7 +28,7 @@ export default function NewPost() {
       .then((data) => {
         setName("");
         setSelectedState("");
-        setTown("");
+        setSelectedTown("");
         setTitle("");
         setIssue("");
         setContactInfo("");
@@ -41,17 +43,29 @@ export default function NewPost() {
   }
 
   //state selection
-  //is there a way that I can use a library to grab all towns from each state?
-  //also can I autogenerate a list of states instead?
+  const [selectedStateCode, setSelectedStateCode] = useState("");
   const [selectedState, setSelectedState] = useState("");
+  const [townOptions, setTownOptions] = useState([]);
+
   function handleStateChange(e) {
     setSelectedState(e.target.value);
-  }
+    let abbr = stateConverter.abbr(e.target.value);
+    setSelectedStateCode(abbr);
 
-  //is there a way to use a library to autogenerate main towns from states?
-  const [town, setTown] = useState("Town name");
+    // get town list IN state change
+    setSelectedTown(""); 
+    setTownOptions(City.getCitiesOfState('US', abbr));
+  }
+  // limit state options to just the 50
+  const fiftyStates = stateConverter.only50();
+  const stateOptions = fiftyStates.map((state) => ({
+    value: state.stateCode,
+    name: state.name,
+  }));
+  //town selection
+  const [selectedTown, setSelectedTown] = useState("Town name");
   function handleTownChange(e) {
-    setTown(e.target.value);
+    setSelectedTown(e.target.value);
   }
 
   const [name, setName] = useState("Name (first, last)");
@@ -95,7 +109,32 @@ export default function NewPost() {
             value={name}
             onChange={handleNameChange}
           />
+
+          {/* state selection button */}
           <h3>State:</h3>
+          <select value={selectedState} onChange={handleStateChange}>
+            <option value=""> -- Select -- </option>
+            {stateOptions.map((state) => (
+              <option key={state.stateCode} value={state.value}>
+                {state.name}
+              </option>
+            ))}
+          </select>
+
+          {/* town selection button */}
+          <div>
+            <h3>Town:</h3>
+            <select value={selectedTown} onChange={handleTownChange}>
+              <option value=""> -- Select -- </option>
+              {townOptions.map((town) => (
+                <option key={town.name} value={town.name}>
+                  {town.name}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {/* <h3>State:</h3>
           <select value={selectedState} onChange={handleStateChange}>
             <option value=""> -- Select --</option>
             <option value="VT">Vermont</option>
@@ -106,7 +145,10 @@ export default function NewPost() {
             placeholder="town"
             value={town}
             onChange={handleTownChange}
-          />
+          /> */}
+
+
+
           <h3>Title:</h3>
           <textarea
             placeholder="title"

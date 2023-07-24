@@ -105,8 +105,12 @@ export default function ViewPosts() {
       {/* posts from API */}
       <hr />
       <h1>Testing conditional</h1>
+      {console.log("selected state value: " + selectedState)}
+      {console.log("posts: " + posts)}
+      {console.log("statePosts: " + statePosts)}
       <ul>
-        {selectedState ? (posts.map((entry) => (
+        {selectedState ? (
+          statePosts.map((entry) => (
           <li className="postEntry" key={entry._id}>
             <h1 className="postTitle">{entry.title}</h1>
             <h3 className="postLocation">{entry.town + ", " + entry.state}</h3>
@@ -116,8 +120,9 @@ export default function ViewPosts() {
             </p>
             <p className="postContactInfo">Contact me at: {entry.contactInfo}</p>
           </li>
-        )))
-        : (statePosts.map((entry) => (
+        ))
+        ) : (
+          posts.map((entry) => (
           <li className="postEntry" key={entry._id}>
             <h1 className="postTitle">{entry.title}</h1>
             <h3 className="postLocation">{entry.town + ", " + entry.state}</h3>
@@ -127,39 +132,10 @@ export default function ViewPosts() {
             </p>
             <p className="postContactInfo">Contact me at: {entry.contactInfo}</p>
           </li>
-        )))}
+        ))
+        )}
       </ul>
-      <hr />
-      <ul>
-        <h1>ALL POSTS</h1>
-        {posts.map((entry) => (
-          <li className="postEntry" key={entry._id}>
-            <h1 className="postTitle">{entry.title}</h1>
-            <h3 className="postLocation">{entry.town + ", " + entry.state}</h3>
-            <p className="postContent">
-              <b>{entry.name} </b>
-              {entry.issue}
-            </p>
-            <p className="postContactInfo">Contact me at: {entry.contactInfo}</p>
-          </li>
-        ))}
-      </ul>
-      <hr />
-      <ul>
-        <h1>STATE POSTS</h1>
-        {statePosts.map((entry) => (
-          <li className="postEntry" key={entry._id}>
-            <h1 className="postTitle">{entry.title}</h1>
-            <h3 className="postLocation">{entry.town + ", " + entry.state}</h3>
-            <p className="postContent">
-              <b>{entry.name} </b>
-              {entry.issue}
-            </p>
-            <p className="postContactInfo">Contact me at: {entry.contactInfo}</p>
-          </li>
-        ))}
-      </ul>
-      <hr />
+     
       <ul>
         <h1>TOWN POSTS</h1>
         {townPosts.map((entry) => (

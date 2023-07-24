@@ -35,11 +35,6 @@ export default function NewPost() {
         setSubmitted(true);
       })
       .catch((error) => alert("Error:" + error));
-
-    //can get rid of the alert if I want to now
-    return setTimeout(() => {
-      alert("Thank you for submitting a request.");
-    }, 100);
   }
 
   //state selection
@@ -48,6 +43,7 @@ export default function NewPost() {
   const [townOptions, setTownOptions] = useState([]);
 
   function handleStateChange(e) {
+    console.log("e.target.value: " + e.target.value)
     setSelectedState(e.target.value);
     let abbr = stateConverter.abbr(e.target.value);
     setSelectedStateCode(abbr);
@@ -58,10 +54,15 @@ export default function NewPost() {
   }
   // limit state options to just the 50
   const fiftyStates = stateConverter.only50();
+  console.log(fiftyStates.length)
+  // this isn't doing the same thing as value=fiftyStates[i].usps and name=fiftyStates[i].name
   const stateOptions = fiftyStates.map((state) => ({
-    value: state.stateCode,
+    stateCode: state.usps,
     name: state.name,
   }));
+  for( let i = 0;  i < stateOptions.length; i++ ) {
+    console.log(fiftyStates[i].name)
+  }
   //town selection
   const [selectedTown, setSelectedTown] = useState("Town name");
   function handleTownChange(e) {
@@ -115,7 +116,7 @@ export default function NewPost() {
           <select value={selectedState} onChange={handleStateChange}>
             <option value=""> -- Select -- </option>
             {stateOptions.map((state) => (
-              <option key={state.stateCode} value={state.value}>
+              <option key={state.name} value={state.stateCode}>
                 {state.name}
               </option>
             ))}

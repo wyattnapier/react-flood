@@ -112,59 +112,55 @@ export default function ViewPosts() {
       {/* {console.log("posts: " + posts)} */}
       {console.log("statePosts: " + statePosts)}
       {console.log("townPosts: " + townPosts)}
-      <ul>
-        {selectedState ? (
-          statePosts.map((entry) => (
-          <li className="postEntry" key={entry._id}>
-            <h1 className="postTitle">{entry.title}</h1>
-            <h3 className="postLocation">{entry.town + ", " + entry.state}</h3>
-            <p className="postContent">
-              <b>{entry.name} </b>
-              {entry.issue}
-            </p>
-            <p className="postContactInfo">Contact me at: {entry.contactInfo}</p>
-          </li>
-        ))
-        ) : ( selectedTown ? (
-          townPosts.map((entry) => (
-            <li className="postEntry" key={entry._id}>
-              <h1 className="postTitle">{entry.title}</h1>
-              <h3 className="postLocation">{entry.town + ", " + entry.state}</h3>
-              <p className="postContent">
-                <b>{entry.name} </b>
-                {entry.issue}
-              </p>
-              <p className="postContactInfo">Contact me at: {entry.contactInfo}</p>
-            </li>
-        ))) : (
-          posts.map((entry) => (
-          <li className="postEntry" key={entry._id}>
-            <h1 className="postTitle">{entry.title}</h1>
-            <h3 className="postLocation">{entry.town + ", " + entry.state}</h3>
-            <p className="postContent">
-              <b>{entry.name} </b>
-              {entry.issue}
-            </p>
-            <p className="postContactInfo">Contact me at: {entry.contactInfo}</p>
-          </li>
-        )))
-        )}
-      </ul>
-     
-      <ul>
-        <h1>TOWN POSTS</h1>
-        {townPosts.map((entry) => (
-          <li className="postEntry" key={entry._id}>
-            <h1 className="postTitle">{entry.title}</h1>
-            <h3 className="postLocation">{entry.town + ", " + entry.state}</h3>
-            <p className="postContent">
-              <b>{entry.name} </b>
-              {entry.issue}
-            </p>
-            <p className="postContactInfo">Contact me at: {entry.contactInfo}</p>
-          </li>
-        ))}
-      </ul>
+      {/* if (selectedState) is true then do first thing, else : do other thing*/}
+        {selectedState ? 
+          (selectedTown ? (
+          <div>
+          <h2>town posts</h2>
+          {townPosts.map((entry) => (
+            <ul>
+              <li className="postEntry" key={entry._id}>
+                <h1 className="postTitle">{entry.title}</h1>
+                <h3 className="postLocation">{entry.town + ", " + entry.state}</h3>
+                <p className="postContent">
+                  <b>{entry.name} </b>
+                  {entry.issue}
+                </p>
+                <p className="postContactInfo">Contact me at: {entry.contactInfo}</p>
+              </li>
+            </ul>
+        ))}</div>) : (
+          <div>
+          <h2>state posts</h2>
+          {statePosts.map((entry) => (
+            <ul>
+              <li className="postEntry" key={entry._id}>
+                <h1 className="postTitle">{entry.title}</h1>
+                <h3 className="postLocation">{entry.town + ", " + entry.state}</h3>
+                <p className="postContent">
+                  <b>{entry.name} </b>
+                  {entry.issue}
+                </p>
+                <p className="postContactInfo">Contact me at: {entry.contactInfo}</p>
+              </li>
+            </ul>
+        ))} </div>)) : (
+          <div>
+          <h2>all posts</h2>
+          {posts.map((entry) => (
+            <ul>
+              <li className="postEntry" key={entry._id}>
+                <h1 className="postTitle">{entry.title}</h1>
+                <h3 className="postLocation">{entry.town + ", " + entry.state}</h3>
+                <p className="postContent">
+                  <b>{entry.name} </b>
+                  {entry.issue}
+                </p>
+                <p className="postContactInfo">Contact me at: {entry.contactInfo}</p>
+              </li>
+            </ul>
+          ))}
+          </div>)}
     </div>
   );
 }

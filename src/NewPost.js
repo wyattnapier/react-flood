@@ -11,7 +11,7 @@ export default function NewPost() {
 
     const newPost = {
       name: name,
-      state: selectedState,
+      state: selectedStateCode, // should this be selectedStateCode instead?
       town: selectedTown,
       title: title,
       issue: issue,
@@ -27,7 +27,7 @@ export default function NewPost() {
       .then((response) => response.json())
       .then((data) => {
         setName("");
-        setSelectedState("");
+        setSelectedStateCode("");
         setSelectedTown("");
         setTitle("");
         setIssue("");
@@ -43,22 +43,22 @@ export default function NewPost() {
   const [townOptions, setTownOptions] = useState([]);
 
   function handleStateChange(e) {
+    // value = statecode; 
+    // text = name;
     console.log("e.target.value: " + e.target.value)
-    setSelectedState(e.target.value);
-    let abbr = stateConverter.abbr(e.target.value);
-    setSelectedStateCode(abbr);
+    setSelectedState(e.target.options[e.target.selectedIndex].text);
+    setSelectedStateCode(e.target.value);
 
     // get town list IN state change
     setSelectedTown(""); 
-    setTownOptions(City.getCitiesOfState('US', abbr));
+    setTownOptions(City.getCitiesOfState('US', e.target.value));
   }
-  // limit state options to just the 50
+  // limit state options to just the 50 (nebraska is doubled)
   const fiftyStates = stateConverter.only50();
-  console.log(fiftyStates.length)
   // this isn't doing the same thing as value=fiftyStates[i].usps and name=fiftyStates[i].name
   const stateOptions = fiftyStates.map((state) => ({
-    stateCode: state.usps,
     name: state.name,
+    stateCode: state.usps,
   }));
   for( let i = 0;  i < stateOptions.length; i++ ) {
     console.log(fiftyStates[i].name)
@@ -103,6 +103,7 @@ export default function NewPost() {
   } else {
     return (
       <div>
+        {/** name selection field */}
         <form onSubmit={handleSubmit}>
           <h3>Name: </h3>
           <textarea

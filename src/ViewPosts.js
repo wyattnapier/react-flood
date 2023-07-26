@@ -15,30 +15,33 @@ export default function ViewPosts() {
 
   // handleStateChange will change all of these
   function handleStateChange(e) {
-    setSelectedState(e.target.value);
-    let abbr = stateConverter.abbr(e.target.value);
-    setSelectedStateCode(abbr);
-    let tempFilter = posts.filter((entry) => entry.state === abbr);
+    // value = stateCode;
+    // text = name;
+    setSelectedStateCode(e.target.value);
+    console.log("viewPost value: " + e.target.value)
+    console.log("full name of selected state w/ selection text: " + e.target.options[e.target.selectedIndex].text)
+    setSelectedState(e.target.options[e.target.selectedIndex].text);
+    let tempFilter = posts.filter((entry) => entry.state === e.target.options[e.target.selectedIndex].text); // change back to e.target.value after messing
     setStatePosts(tempFilter);
 
     // get town list IN state change
     setSelectedTown(""); 
-    setTownOptions(City.getCitiesOfState('US', abbr));
+    setTownOptions(City.getCitiesOfState('US', e.target.value));
   }
 
   const [selectedTown, setSelectedTown] = useState("Town name");
   function handleTownChange(e) {
     setSelectedTown(e.target.value);
     console.log("statePosts to be filtered: " + statePosts)
-    let tempFilter = statePosts.filter((entry) => entry.state === e.target.value);
+    let tempFilter = statePosts.filter((entry) => entry.town === e.target.value);
     console.log("tempfilter (which is also town posts): " + tempFilter)
     setTownPosts(tempFilter)
   }
 
   const fiftyStates = stateConverter.only50();
   const stateOptions = fiftyStates.map((state) => ({
-    value: state.stateCode,
-    name: state.name,
+    stateCode: state.usps,
+    name: state.name
   }));
 
   // posts from api
@@ -74,10 +77,11 @@ export default function ViewPosts() {
 
       {/* state selection button */}
       <h3>State:</h3>
-      <select value={selectedState} onChange={handleStateChange}>
-        <option value=""> -- Select -- </option>
+      {console.log("val of selected state right before dropdown: " + selectedState)}
+      <select value="cheese" onChange={handleStateChange}>
+        <option value={selectedState}> -- Select -- </option>
         {stateOptions.map((state) => (
-          <option key={state.stateCode} value={state.value}>
+          <option key={state.name} value={state.stateCode}>
             {state.name}
           </option>
         ))}

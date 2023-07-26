@@ -78,14 +78,15 @@ export default function ViewPosts() {
       {/* state selection button */}
       <h3>State:</h3>
       {console.log("val of selected state right before dropdown: " + selectedState)}
-      <select value="cheese" onChange={handleStateChange}>
+      <select value={selectedState} onChange={handleStateChange}>
         <option value={selectedState}> -- Select -- </option>
-        {stateOptions.map((state) => (
-          <option key={state.name} value={state.stateCode}>
+        {stateOptions.map((state, index) => (
+          <option key={index} value={state.stateCode}>
             {state.name}
           </option>
         ))}
       </select>
+      <p>This is my state choice brudda: {selectedState}</p>
 
       {/* town selection button */}
       {selectedState ? (

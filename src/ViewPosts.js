@@ -21,7 +21,7 @@ export default function ViewPosts() {
     console.log("viewPost value: " + e.target.value)
     console.log("full name of selected state w/ selection text: " + e.target.options[e.target.selectedIndex].text)
     setSelectedState(e.target.options[e.target.selectedIndex].text);
-    let tempFilter = posts.filter((entry) => entry.state === e.target.options[e.target.selectedIndex].text); // change back to e.target.value after messing
+    let tempFilter = posts.filter((entry) => entry.state === e.target.value); // change back to e.target.value after messing
     setStatePosts(tempFilter);
 
     // get town list IN state change

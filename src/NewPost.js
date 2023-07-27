@@ -136,21 +136,6 @@ export default function NewPost() {
             </select>
           </div>
 
-          {/* <h3>State:</h3>
-          <select value={selectedState} onChange={handleStateChange}>
-            <option value=""> -- Select --</option>
-            <option value="VT">Vermont</option>
-            <option value="NH">New Hampshire</option>
-          </select>
-          <h3>Town:</h3>
-          <textarea
-            placeholder="town"
-            value={town}
-            onChange={handleTownChange}
-          /> */}
-
-
-
           <h3>Title:</h3>
           <textarea
             placeholder="title"
@@ -169,7 +154,9 @@ export default function NewPost() {
             value={contactInfo}
             onChange={handleContactInfoChange}
           />
-          <button type="submit">Submit</button>
+          <div>
+            <button type="submit">Submit</button>
+          </div>
         </form>
       </div>
     );

@@ -149,10 +149,10 @@ export default function ViewPosts() {
           <h2>all posts</h2>
           {posts.map((entry) => (
             <ul>
-              <li className="postEntry" key={entry._id}>
-                <h1 className="postTitle">{entry.title}</h1>
-                <h3 className="postLocation">{entry.town + ", " + entry.state}</h3>
-                <p className="postContent">
+              <li className="PostEntry" key={entry._id}>
+                <h1 className="PostTitle">{entry.title}</h1>
+                <h3 className="PostLocation">{entry.town + ", " + entry.state}</h3>
+                <p className="PostContent">
                   <b>{entry.name} </b>
                   {entry.issue}
                 </p>

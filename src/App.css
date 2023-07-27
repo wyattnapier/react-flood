@@ -1,5 +1,6 @@
 .App {
-  background-color: #bababa;
+  background-color: #23272f;
+  color: rgb(180, 249, 250);
 }
 
 .App-header {
@@ -9,13 +10,13 @@
   align-items: center;
   padding: 20px 0 20px 20px;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: black;
+  font-size: calc(vmin);
+  /* color: black; */
 }
 
 .App-indiv-header {
   text-align: left;
-  background-color: darkslategray;
+  background-color: rgb(55, 65, 86);
   padding: 5px 10px;
   margin-left: 10px;
   margin-right: 10px;
@@ -26,13 +27,27 @@
   color: #61dafb;
 }
 
+.PostEntry {
+  padding: 5px 10px;
+  background-color: rgba(52,58,70,.8);
+  border-radius: 10px;
+}
+
 button {
-  background-color: darkslategray;
+  background-color: #0074a6;
   padding: 0 10px;
   margin-left: 10px;
   margin-right: 10px;
+  color: rgb(180, 249, 250);
 }
 
 button:hover {
-  background-color: rgb(0, 80, 0);
+  background-color: #149eca;
 }
+
+select {
+  background-color:#0074a6;
+  color: rgb(180, 249, 250);
+}
+
+{/* rgba(52,58,70,.8) for backbround of posts*/}

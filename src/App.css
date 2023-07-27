@@ -45,6 +45,11 @@ button:hover {
   background-color: #149eca;
 }
 
+textarea {
+  background-color: rgb(55, 65, 86);
+  color: rgb(180, 249, 250);
+}
+
 select {
   background-color:#0074a6;
   color: rgb(180, 249, 250);

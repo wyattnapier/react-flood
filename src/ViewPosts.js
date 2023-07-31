@@ -17,6 +17,7 @@ export default function ViewPosts() {
   function handleStateChange(e) {
     // value = stateCode;
     // text = name;
+    filterPosts(posts);
     setSelectedStateCode(e.target.value);
     console.log("viewPost value: " + e.target.value)
     console.log("full name of selected state w/ selection text: " + e.target.options[e.target.selectedIndex].text)
@@ -56,6 +57,16 @@ export default function ViewPosts() {
       })
       .catch((error) => console.error("Error:", error));
   }, []);
+
+  const [sortedPosts, setSortedPosts] = useState([]);
+  function filterPosts(posts) {
+    console.log("filtering things")
+    var temp_sorted_posts = posts.sort((a,b) => {
+      return new Date(a.scheduled_for).getTime() - 
+          new Date(b.scheduled_for).getTime()
+      }).reverse();
+    setPosts(temp_sorted_posts);
+  }
   /* 
   // first need to filter the posts so they're just from one state:
   // might need to use state for these variables since they change
@@ -119,7 +130,7 @@ export default function ViewPosts() {
           <h2>town posts</h2>
           {townPosts.map((entry) => (
             <ul>
-              <li className="postEntry" key={entry._id}>
+              <li className="PostEntry" key={entry._id}>
                 <h1 className="postTitle">{entry.title}</h1>
                 <h3 className="postLocation">{entry.town + ", " + entry.state}</h3>
                 <p className="postContent">
@@ -134,7 +145,7 @@ export default function ViewPosts() {
           <h2>state posts</h2>
           {statePosts.map((entry) => (
             <ul>
-              <li className="postEntry" key={entry._id}>
+              <li className="PostEntry" key={entry._id}>
                 <h1 className="postTitle">{entry.title}</h1>
                 <h3 className="postLocation">{entry.town + ", " + entry.state}</h3>
                 <p className="postContent">

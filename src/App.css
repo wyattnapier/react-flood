@@ -1,58 +1,61 @@
-.App {
-  background-color: #23272f;
-  color: rgb(180, 249, 250);
+App {
+    background-color: #23272f;
+    color: rgb(180, 249, 250);
 }
 
-.App-header {
-  min-height: 100vh;
-  display: inline-block;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px 0 20px 20px;
-  justify-content: center;
-  font-size: calc(vmin);
-  /* color: black; */
+App-header {
+    min-height: 100vh;
+    display: inline-block;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 0 20px 20px;
+    justify-content: center;
+    font-size: calc(vmin);
 }
 
-.App-indiv-header {
-  text-align: left;
-  background-color: rgb(55, 65, 86);
-  padding: 5px 10px;
-  margin-left: 10px;
-  margin-right: 10px;
-  display: inline-block;
+App-indiv-header {
+    text-align: left;
+    background-color: rgb(55, 65, 86);
+    padding: 5px 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    display: inline-block;
 }
 
-.App-link {
-  color: #61dafb;
+App-link {
+    color: #61dafb;
 }
 
 .PostEntry {
-  padding: 5px 10px;
-  background-color: rgba(52,58,70,.8);
-  border-radius: 10px;
+    padding: 5px 10px;
+    margin-left: 0;
+    background-color: rgba(52, 58, 70, 0.8);
+    border-radius: 10px;
 }
 
 button {
-  background-color: #0074a6;
-  padding: 0 10px;
-  margin-left: 10px;
-  margin-right: 10px;
-  color: rgb(180, 249, 250);
+    background-color: #0074a6;
+    margin-left: 10px;
+    margin-right: 10px;
+    color: rgb(180, 249, 250);
 }
 
 button:hover {
-  background-color: #149eca;
+    background-color: #149eca;
 }
 
 textarea {
-  background-color: rgb(55, 65, 86);
-  color: rgb(180, 249, 250);
+    background-color: rgb(55, 65, 86);
+    color: rgb(180, 249, 250);
 }
 
 select {
-  background-color:#0074a6;
-  color: rgb(180, 249, 250);
+    background-color: #0074a6;
+    color: rgb(180, 249, 250);
 }
 
-{/* rgba(52,58,70,.8) for backbround of posts*/}
+ul {
+    list-style-type: none;
+}
+
+{/* rgba(52, 58, 70, 0.8) for background of posts*/}

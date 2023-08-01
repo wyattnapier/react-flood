@@ -90,7 +90,7 @@ export default function ViewPosts() {
       <h3>State:</h3>
       {console.log("val of selected state right before dropdown: " + selectedState)}
       <select value={selectedState} onChange={handleStateChange}>
-        <option value={selectedState}> -- Select -- </option>
+        <option value={selectedState}> -- Select -- </option> {/** only difference between this and town dropdown is the value is null for towns */}
         {stateOptions.map((state, index) => (
           <option key={index} value={state.stateCode}>
             {state.name}
@@ -118,7 +118,6 @@ export default function ViewPosts() {
 
       {/* posts from API */}
       <hr />
-      <h1>Testing conditional</h1>
       {console.log("selected town value: " + selectedTown)}
       {/* {console.log("posts: " + posts)} */}
       {console.log("statePosts: " + statePosts)}
@@ -127,7 +126,7 @@ export default function ViewPosts() {
         {selectedState ? 
           (selectedTown ? (
           <div>
-          <h2>town posts</h2>
+          <h2>Town Posts</h2>
           {townPosts.map((entry) => (
             <ul>
               <li className="PostEntry" key={entry._id}>
@@ -142,7 +141,7 @@ export default function ViewPosts() {
             </ul>
         ))}</div>) : (
           <div>
-          <h2>state posts</h2>
+          <h2>State Posts</h2>
           {statePosts.map((entry) => (
             <ul>
               <li className="PostEntry" key={entry._id}>
@@ -157,7 +156,7 @@ export default function ViewPosts() {
             </ul>
         ))} </div>)) : (
           <div>
-          <h2>all posts</h2>
+          <h2>All Posts</h2>
           {posts.map((entry) => (
             <ul>
               <li className="PostEntry" key={entry._id}>

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import './ViewPosts.css';
 // import { people } from "./data.js";
 // import { floodData } from "./data.js";
 import stateConverter from "us-state-converter";
@@ -83,8 +84,9 @@ export default function ViewPosts() {
 
   return (
     <div>
+      <div className="PostFilter">
       {/* header */}
-      <h1>Let's filter this out:</h1>
+      <h2>Let's filter this out:</h2>
 
       {/* state selection button */}
       <h3>State:</h3>
@@ -113,20 +115,21 @@ export default function ViewPosts() {
           </select>
         </div>
       ) : (
-        <br></br>
+        <div></div>
       )}
-
+      </div>
+      
       {/* posts from API */}
-      <hr />
       {console.log("selected town value: " + selectedTown)}
       {/* {console.log("posts: " + posts)} */}
       {console.log("statePosts: " + statePosts)}
       {console.log("townPosts: " + townPosts)}
       {/* if (selectedState) is true then do first thing, else : do other thing*/}
+      <div className="Posts">
         {selectedState ? 
           (selectedTown ? (
           <div>
-          <h2>Town Posts</h2>
+          <h1>Town Posts</h1>
           {townPosts.map((entry) => (
             <ul>
               <li className="PostEntry" key={entry._id}>
@@ -141,7 +144,7 @@ export default function ViewPosts() {
             </ul>
         ))}</div>) : (
           <div>
-          <h2>State Posts</h2>
+          <h1>State Posts</h1>
           {statePosts.map((entry) => (
             <ul>
               <li className="PostEntry" key={entry._id}>
@@ -156,7 +159,7 @@ export default function ViewPosts() {
             </ul>
         ))} </div>)) : (
           <div>
-          <h2>All Posts</h2>
+          <h1>All Posts</h1>
           {posts.map((entry) => (
             <ul>
               <li className="PostEntry" key={entry._id}>
@@ -171,6 +174,7 @@ export default function ViewPosts() {
             </ul>
           ))}
           </div>)}
+        </div>
     </div>
   );
 }

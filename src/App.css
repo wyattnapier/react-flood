@@ -4,7 +4,8 @@
     --buttonColor: #0074a6;
     --primaryBackground: #23272f;
     --secondaryBackground: #03567a;
-    --interactiveBackground: rgb(74, 76, 80);
+    --interactiveBackground: rgb(74, 76, 80); /* just an option for styling, matchies postEntry background */
+    --interactiveBackgroundTwo: rgb(55, 65, 86);
 }
 
 .App {
@@ -39,7 +40,7 @@
 }
 
 button {
-    background-color: var(--interactiveBackground);
+    background-color: var(--interactiveBackgroundTwo);
     margin-left: 20px;
     /* border-radius: 20%; */
     color: var(--textColor);
@@ -50,12 +51,12 @@ button:hover {
 }
 
 textarea {
-    background-color: rgb(55, 65, 86);
+    background-color: var(--interactiveBackgroundTwo);
     color: var(--textColor);
 }
 
 select {
-    background-color: var(--interactiveBackground);
+    background-color: var(--interactiveBackgroundTwo);
     color: var(--textColor);
 }
 

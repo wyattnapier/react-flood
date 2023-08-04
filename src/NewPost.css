@@ -1,0 +1,21 @@
+:root {
+    --textColor: rgb(223, 251, 251);
+    --linkColor: #61dafb;
+    --buttonColor: #0074a6;
+    --primaryBackground: #23272f;
+    --secondaryBackground: #03567a;
+    --interactiveBackground: rgb(74, 76, 80); /* just an option for styling, matchies postEntry background */
+    --interactiveBackgroundTwo: rgb(55, 65, 86);
+}
+
+.SelectionZone {
+    width: 100vw;
+    background-color: var(--primaryBackground);
+    padding: 1px 10px 5px 20px;
+    margin: 20px 0px 0px 0px;
+}
+
+.SelectionZone button {
+    margin-left: -2px;
+}
+

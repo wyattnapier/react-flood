@@ -6,7 +6,7 @@ import NewPost from './NewPost.js';
 function Button ({action, text}) {
   return (
     <button onClick={action} >
-      <h1>{text}</h1>
+      <h2>{text}</h2>
     </button>
   );
 }

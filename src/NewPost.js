@@ -1,4 +1,5 @@
 import { useState } from "react";
+import './NewPost.css';
 import stateConverter from "us-state-converter";
 import { State, City } from "country-state-city";
 
@@ -102,7 +103,7 @@ export default function NewPost() {
     );
   } else {
     return (
-      <div>
+      <div className="SelectionZone">
         {/** name selection field */}
         <form onSubmit={handleSubmit}>
           <h3>Name: </h3>

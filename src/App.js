@@ -22,7 +22,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1 className="App-indiv-header">Distaster Recovery Assistance</h1>
+        <h1 className="App-indiv-header">Disaster Recovery Assistance</h1>
         {
           tab ? 
           <div className='makePostTab'>

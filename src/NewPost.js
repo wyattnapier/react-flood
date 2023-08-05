@@ -38,6 +38,14 @@ export default function NewPost() {
       .catch((error) => alert("Error:" + error));
   }
 
+  function Button ({type, text}) {
+    return (
+      <button type={type} >
+        <h3>{text}</h3>
+      </button>
+    );
+  }
+
   //state selection
   const [selectedStateCode, setSelectedStateCode] = useState("");
   const [selectedState, setSelectedState] = useState("");
@@ -96,13 +104,16 @@ export default function NewPost() {
   }
   if (submitted) {
     return (
-      <div>
+      <div className="Confirmation">
         <h2>Thank you for submitting a request!</h2>
+        <img src="https://www.crownconnect.com/assets/ThankYou.jpg" alt="Thank you message"/>
       </div>
       //could add a button to "submit another request"
     );
   } else {
     return (
+      <div>
+      <h3 className="Header">Fill out the form below to request help. Please make sure to include contact information!</h3>
       <div className="SelectionZone">
         {/** name selection field */}
         <form onSubmit={handleSubmit}>
@@ -156,9 +167,10 @@ export default function NewPost() {
             onChange={handleContactInfoChange}
           />
           <div>
-            <button type="submit">Submit</button>
+            <Button type="submit" text="Submit"/>
           </div>
         </form>
+      </div>
       </div>
     );
   }

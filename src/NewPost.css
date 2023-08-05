@@ -17,5 +17,22 @@
 
 .SelectionZone button {
     margin-left: -2px;
+    margin-top: 10px;
+    padding: 2px 5px; /* fix button size -- too tall */
 }
 
+.Confirmation {
+    width: 100vw;
+    background-color: var(--primaryBackground);
+    padding: 1px 10px 5px 20px;
+    margin: 20px 0px 0px 0px;
+    height: 100vh;
+}
+
+.Header {
+    margin-left: 20px;
+}
+
+image {
+    width: 50vw;
+}

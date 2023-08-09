@@ -18,7 +18,6 @@ export default function ViewPosts() {
   function handleStateChange(e) {
     // value = stateCode;
     // text = name;
-    filterPosts(posts);
     setSelectedStateCode(e.target.value);
     console.log("viewPost value: " + e.target.value)
     console.log("full name of selected state w/ selection text: " + e.target.options[e.target.selectedIndex].text)
@@ -67,6 +66,31 @@ export default function ViewPosts() {
           new Date(b.scheduled_for).getTime()
       }).reverse();
     setPosts(temp_sorted_posts);
+  }
+
+  function noPosts(level) {
+    var empty = false;
+    if((level == "town" && townPosts.length === 0) || (level == "state" && statePosts.length === 0) || (level == "all" && posts.length === 0)) { 
+      console.log("number of all posts is: "  + posts.length)
+      console.log("number of state posts is: "  + statePosts.length)
+      console.log("number of town posts is: "  + townPosts.length)
+      empty = true;
+    }
+    if(empty) {
+      return (
+        <div>
+          <ul>
+              <li className="PostEntry">
+                <p className="postContent">
+                  <b>There are currently no posts.</b> <br />
+                  Consider changing your filters. <br />
+                  Otherwise, feel free to make one by clicking the button above!
+                </p>
+              </li>
+            </ul>
+        </div>
+      )
+    }
   }
   /* 
   // first need to filter the posts so they're just from one state:
@@ -142,7 +166,9 @@ export default function ViewPosts() {
                 <p className="postContactInfo">Contact me at: {entry.contactInfo}</p>
               </li>
             </ul>
-        ))}</div>) : (
+        ))}
+        {noPosts("town")}
+        </div>) : (
           <div>
           <h1>State Posts</h1>
           {statePosts.map((entry) => (
@@ -157,7 +183,9 @@ export default function ViewPosts() {
                 <p className="postContactInfo">Contact me at: {entry.contactInfo}</p>
               </li>
             </ul>
-        ))} </div>)) : (
+        ))} 
+        {noPosts("state")}
+        </div>)) : (
           <div>
           <h1>All Posts</h1>
           {posts.map((entry) => (
@@ -173,6 +201,7 @@ export default function ViewPosts() {
               </li>
             </ul>
           ))}
+          {noPosts("all")}
           </div>)}
         </div>
     </div>

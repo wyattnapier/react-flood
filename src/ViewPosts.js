@@ -92,6 +92,75 @@ export default function ViewPosts() {
       )
     }
   }
+
+  function displayPosts () {
+    if(selectedState) {
+      if(selectedTown) {
+        // state and town selected --> townPosts
+        return (
+          <div className="Posts">
+            <h1>Town Posts</h1>
+            {townPosts.map((entry) => (
+              <ul>
+                <li className="PostEntry" key={entry._id}>
+                  <h1 className="postTitle">{entry.title}</h1>
+                  <h3 className="postLocation">{entry.town + ", " + entry.state}</h3>
+                  <p className="postContent">
+                    <b>{entry.name} </b>
+                    {entry.issue}
+                  </p>
+                  <p className="postContactInfo">Contact me at: {entry.contactInfo}</p>
+                </li>
+              </ul>
+          ))}
+          {noPosts("town")}
+        </div>
+        ) 
+      } else {
+        // state selected, but not town --> statePosts
+        return (
+          <div className="Posts">
+            <h1>State Posts</h1>
+            {statePosts.map((entry) => (
+              <ul>
+                <li className="PostEntry" key={entry._id}>
+                  <h1 className="postTitle">{entry.title}</h1>
+                  <h3 className="postLocation">{entry.town + ", " + entry.state}</h3>
+                  <p className="postContent">
+                    <b>{entry.name} </b>
+                    {entry.issue}
+                  </p>
+                  <p className="postContactInfo">Contact me at: {entry.contactInfo}</p>
+                </li>
+              </ul>
+          ))} 
+          {noPosts("state")}
+        </div>
+        )
+      }
+    } else {
+      // no state selected
+      return (
+        <div className="Posts">
+          <h1>All Posts</h1>
+          {posts.map((entry) => (
+            <ul>
+              <li className="PostEntry" key={entry._id}>
+                <h1 className="PostTitle">{entry.title}</h1>
+                <h3 className="PostLocation">{entry.town + ", " + entry.state}</h3>
+                <p className="PostContent">
+                  <b>{entry.name} </b>
+                  {entry.issue}
+                </p>
+                <p className="postContactInfo">Contact me at: {entry.contactInfo}</p>
+              </li>
+            </ul>
+          ))}
+          {noPosts("all")}
+        </div>
+      )
+    }
+  }
   /* 
   // first need to filter the posts so they're just from one state:
   // might need to use state for these variables since they change
@@ -149,7 +218,8 @@ export default function ViewPosts() {
       {console.log("statePosts: " + statePosts)}
       {console.log("townPosts: " + townPosts)}
       {/* if (selectedState) is true then do first thing, else : do other thing*/}
-      <div className="Posts">
+      {displayPosts()}
+      {/* <div className="Posts">
         {selectedState ? 
           (selectedTown ? (
           <div>
@@ -203,7 +273,7 @@ export default function ViewPosts() {
           ))}
           {noPosts("all")}
           </div>)}
-        </div>
+        </div> */}
     </div>
   );
 }

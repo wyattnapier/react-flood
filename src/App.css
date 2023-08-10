@@ -12,6 +12,7 @@
     background-color: var(--primaryBackground);
     color: var(--textColor);
     width: 100vw;
+    height: 100vh;
 }
 
 .App-header {

@@ -24,7 +24,7 @@ export default function ViewPosts() {
     setStatePosts(tempFilter);
 
     // get town list IN state change
-    setSelectedTown(""); 
+    setSelectedTown(null) 
     setTownOptions(City.getCitiesOfState('US', e.target.value));
   }
 

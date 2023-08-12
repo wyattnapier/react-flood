@@ -13,12 +13,9 @@ export default function ViewPosts() {
   const [townOptions, setTownOptions] = useState([]);
   const [statePosts, setStatePosts] = useState([]);
   const [townPosts, setTownPosts] = useState([]);
-  var sorted = false;
 
   // handleStateChange will change all of these
   function handleStateChange(e) {
-    // value = stateCode;
-    // text = name;
     setSelectedStateCode(e.target.value);
     console.log("viewPost value: " + e.target.value)
     console.log("full name of selected state w/ selection text: " + e.target.options[e.target.selectedIndex].text)
@@ -52,30 +49,18 @@ export default function ViewPosts() {
     fetch("http://localhost:5001/api/posts")
       .then((response) => response.json())
       .then((data) => {
-        setPosts(data);
+        const sorted_posts = [...data]
+        sorted_posts.sort((a,b) => {
+          return new Date(b.dateCreated).getTime() - new Date(a.dateCreated).getTime(); // Descending order
+        })
+        setPosts(sorted_posts);
         console.log("posts from API 👇");
         console.log(data);
-        filterPosts()
+        // filterPosts() // being called before re-render when posts array is updated
+        console.log(sorted_posts)
       })
       .catch((error) => console.error("Error:", error));
   }, []);
-
-  // useEffect(() => {
-  //   console.log("calling filter posts")
-  //   filterPosts(); // This sorts the posts once after the initial fetch
-  // }, []);
-  
-
-  function filterPosts() {
-    var temp_sorted_posts = [...posts]; // Create a copy of the array
-    temp_sorted_posts.sort((a, b) => {
-      return new Date(b.dateCreated).getTime() - new Date(a.dateCreated).getTime(); // Descending order
-    });
-    console.log("posts immediately after sorting before reversal: " + temp_sorted_posts)
-    // temp_sorted_posts.reverse();
-    console.log("posts after reversal: " + temp_sorted_posts)
-    setPosts(temp_sorted_posts); // this line causes a re-render which then results in an infinite loop
-  }
 
   function noPosts(level) {
     var empty = false;
@@ -103,11 +88,6 @@ export default function ViewPosts() {
   }
 
   function displayPosts () {
-    // if(!sorted) { 
-    //   filterPosts();
-    //   sorted = true;
-    // }
-    // filterPosts();
     if(selectedState) {
       if(selectedTown) {
         // state and town selected --> townPosts
@@ -176,19 +156,6 @@ export default function ViewPosts() {
       )
     }
   }
-  /* 
-  // first need to filter the posts so they're just from one state:
-  // might need to use state for these variables since they change
-  // can probably put this in the handleStateChange() function!!!
-
-
-  // stack overflow suggestion for sorting in descending order:
-  // need to swap out variables still once connected to mongoDB
-    var sorted_meetings = meetings.sort((a,b) => {
-    return new Date(a.scheduled_for).getTime() - 
-        new Date(b.scheduled_for).getTime()
-    }).reverse();
-  */
 
   return (
     <div>

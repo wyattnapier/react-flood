@@ -4,6 +4,7 @@ import DeletePostButton from "./DeletePostButton";
 export default function DeletePost () {
     const [titleChosen, setTitleChosen] = useState(false);
     const [deleteDate, setDeleteDate] = useState("");
+    const [deleted, setDeleted] = useState(false);
     
     const handleTitleChange = (e) => {
         setDeleteDate(e.target.value)
@@ -11,16 +12,12 @@ export default function DeletePost () {
 
     const handleSubmit = () => {
         setTitleChosen(!titleChosen)
+        setDeleted(false)
     }
 
     const handleDeletion = () => {
-        return (
-            <div>
-                {setDeleteDate("")}
-                <p>Your request was submitted</p>
-                <button onClick={handleSubmit}>Delete another post</button>
-            </div>
-        )
+        {setDeleteDate("")}
+        {setDeleted(true)}
     }
     
     if (!titleChosen) {
@@ -32,8 +29,16 @@ export default function DeletePost () {
         )
     } else {
         return (
-            <div>
+            deleted 
+
+            ? <div>
+                <p>Your request was submitted</p>
+                <button onClick={handleSubmit}>Delete another post</button>
+            </div>
+
+            : <div>
                 <p>Trying to delete a post real quick</p>
+                {/* <button onClick={handleDeletion}>midget button</button> */}
                 <DeletePostButton postDate={deleteDate} onDelete={handleDeletion} />
             </div>
         )

@@ -3,9 +3,14 @@ import React from "react";
 const DeletePostButton = ({ postTitle, onDelete }) => {
   const handleDelete = async () => {
     try {
-      const response = await fetch(`/posts/${postTitle}`, {
+      const response = await fetch(`http://localhost:5001/api/posts/delete/${postTitle}`, {
         method: "DELETE",
       });
+
+      // testing to fix delete API call
+      // const response = await fetch(`http://localhost:5001/api/posts/${postTitle}`, {
+      //   method: "GET",
+      // });
 
       if (response.ok) {
         const data = await response.json();

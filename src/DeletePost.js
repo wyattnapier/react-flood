@@ -3,10 +3,10 @@ import DeletePostButton from "./DeletePostButton";
 
 export default function DeletePost () {
     const [titleChosen, setTitleChosen] = useState(false);
-    const [deleteTitle, setDeleteTitle] = useState("");
+    const [deleteDate, setDeleteDate] = useState("");
     
     const handleTitleChange = (e) => {
-        setDeleteTitle(e.target.value)
+        setDeleteDate(e.target.value)
     }
 
     const handleSubmit = () => {
@@ -16,7 +16,7 @@ export default function DeletePost () {
     const handleDeletion = () => {
         return (
             <div>
-                {setDeleteTitle("")}
+                {setDeleteDate("")}
                 <p>Your request was submitted</p>
                 <button onClick={handleSubmit}>Delete another post</button>
             </div>
@@ -26,7 +26,7 @@ export default function DeletePost () {
     if (!titleChosen) {
         return (
             <form onSubmit={handleSubmit}>
-                <textarea placeholder="--Post title--" value={deleteTitle} onChange={handleTitleChange}/>
+                <textarea placeholder="--Date post was created--" value={deleteDate} onChange={handleTitleChange}/>
                 <button type="submit" onClick={handleSubmit}>Submit!</button>
             </form>
         )
@@ -34,7 +34,7 @@ export default function DeletePost () {
         return (
             <div>
                 <p>Trying to delete a post real quick</p>
-                <DeletePostButton postTitle={deleteTitle} onDelete={handleDeletion} />
+                <DeletePostButton postDate={deleteDate} onDelete={handleDeletion} />
             </div>
         )
     }

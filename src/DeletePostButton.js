@@ -1,9 +1,9 @@
 import React from "react";
 
-const DeletePostButton = ({ postTitle, onDelete }) => {
+const DeletePostButton = ({ postDate, onDelete }) => {
   const handleDelete = async () => {
     try {
-      const response = await fetch(`http://localhost:5001/api/posts/delete/${postTitle}`, {
+      const response = await fetch(`http://localhost:5001/api/posts/delete/${postDate}`, {
         method: "DELETE",
       });
 

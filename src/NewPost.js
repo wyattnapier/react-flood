@@ -2,6 +2,7 @@ import { useState } from "react";
 import './NewPost.css';
 import stateConverter from "us-state-converter";
 import { State, City } from "country-state-city";
+import DeletePost from "./DeletePost.js";
 
 export default function NewPost() {
   // submit button
@@ -50,6 +51,7 @@ export default function NewPost() {
   const [selectedStateCode, setSelectedStateCode] = useState("");
   const [selectedState, setSelectedState] = useState("");
   const [townOptions, setTownOptions] = useState([]);
+  const [deletePostTab, setDeletePostTab] = useState(false);
 
   function handleStateChange(e) {
     // value = statecode; 
@@ -101,6 +103,14 @@ export default function NewPost() {
   );
   function handleContactInfoChange(e) {
     setContactInfo(e.target.value);
+  }
+  function handleTabChange() {
+    setDeletePostTab(true);
+  }
+  if (deletePostTab) {
+    return (
+      <DeletePost />
+    )
   }
   if (submitted) {
     return (
@@ -171,6 +181,7 @@ export default function NewPost() {
           </div>
         </form>
       </div>
+      <button onClick={handleTabChange}>Let's delete a post!</button>
       </div>
     );
   }

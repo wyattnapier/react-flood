@@ -87,6 +87,7 @@ export default function ViewPosts() {
     }
   }
 
+  // could simplify this by calling functions that pass in <postArray> and <postCategory> as params e.g. "townPosts" and "Town"
   function displayPosts () {
     if(selectedState) {
       if(selectedTown) {
@@ -145,7 +146,7 @@ export default function ViewPosts() {
                 <p className="PostContent">
                   <b>{entry.name} </b>
                   {entry.issue} <br />
-                  {entry.dateCreated}
+                  {/* {entry.dateCreated} */}
                 </p>
                 <p className="postContactInfo">Contact me at: {entry.contactInfo}</p>
               </li>
@@ -167,7 +168,7 @@ export default function ViewPosts() {
       <h3>State:</h3>
       {console.log("val of selected state right before dropdown: " + selectedState)}
       <select value={selectedState} onChange={handleStateChange}>
-        <option value={selectedState}> -- Select -- </option> {/** only difference between this and town dropdown is the value is null for towns */}
+        <option value=""> -- Select -- </option> {/** only difference between this and town dropdown is the value is null for towns */}
         {stateOptions.map((state, index) => (
           <option key={index} value={state.stateCode}>
             {state.name}

@@ -136,7 +136,7 @@ export default function NewPost() {
 
           {/* state selection button */}
           <h3>State:</h3>
-          <select value={selectedState} onChange={handleStateChange}>
+          <select value={selectedStateCode} onChange={handleStateChange}>
             <option value=""> -- Select -- </option>
             {stateOptions.map((state) => (
               <option key={state.name} value={state.stateCode}>
